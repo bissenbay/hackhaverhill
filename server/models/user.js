@@ -43,7 +43,7 @@ var userSchema = new mongoose.Schema({
     },
     programs: {
         state_agencies_involved: Array
-    }
+    },
     contact: {
         phone: Number
     },
