@@ -32,4 +32,33 @@ app.post('/user', function(req, res) {
     });
 });
 
+app.post('/class', function(req, res) {
+    mongoose.connect('mongodb://team:team123@ds157559.mlab.com:57559/hackathon', { useNewUrlParser: true });
+
+    var db = mongoose.connection;
+      db.on('error', console.error.bind(console, 'connection error:'));
+      db.once('open', function() {
+      console.log('connection succeeded');
+    });
+
+    var classSchema = new mongoose.Schema({
+        name: String,
+        teachers: Array,
+        students: Array
+    });
+
+    var Class = mongoose.model('Class', classSchema);
+
+    var class = new Class({
+        name: req.body.name,
+        teachers: req.body.teachers,
+        students: req.body.students
+    });
+
+    class.save(function(err, class) {
+        if (err) return console.error(err);
+        console.log("Class saved");
+    })
+});
+
 app.listen(3000);
