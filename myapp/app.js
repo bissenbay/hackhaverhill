@@ -69,14 +69,11 @@ app.post('/message', function(req, res) {
 
 app.get('/userList', function(req,res) {
     User.find({}, function(err, users) {
-
         let userMap = {};
         users.forEach(function(user){
             userMap[user._id] = user;
         })
         res.send(userMap)
-
-
     })
 })
 
