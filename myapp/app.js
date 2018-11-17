@@ -61,4 +61,38 @@ app.post('/class', function(req, res) {
     })
 });
 
+app.post('/message', function(req, res) {
+    mongoose.connect('mongodb://team:team123@ds157559.mlab.com:57559/hackathon', { useNewUrlParser: true });
+
+    var db = mongoose.connection;
+      db.on('error', console.error.bind(console, 'connection error:'));
+      db.once('open', function() {
+      console.log('connection succeeded');
+    });
+
+
+    var messageSchema = new mongoose.Schema({
+        time: Date,
+        value: String,
+        from: String,
+        to: String,
+        recipient_type: String // class, student
+    })
+
+    var Message = mongoose.model('Message', messageSchema);
+
+    var message = new Message({
+        time: Date.now(), // is this how you do it?
+        value: req.body.value,
+        from: req.body.from,
+        to: req.body.to,
+        recipient_type: req.body.recipient_type
+    });
+
+    message.save(function(err, message) {
+        if (err) return console.error(err);
+        console.log("Message sent");
+    });
+});
+
 app.listen(3000);
