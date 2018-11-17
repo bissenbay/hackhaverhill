@@ -10,13 +10,17 @@ app.get('/', function (req, res) {
   res.send('hello world');
 });
 
-app.post('/user', function(req, res) {
+var getConnection = function() {
     mongoose.connect('mongodb://team:team123@ds157559.mlab.com:57559/hackathon', { useNewUrlParser: true });
     var db = mongoose.connection;
     db.on('error', console.error.bind(console, 'connection error:'));
     db.once('open', function() {
-      console.log('connection succeeded');
+        console.log('connection succeeded');
     });
+}
+
+app.post('/user', function(req, res) {
+    getConnection()
     var userSchema = new mongoose.Schema({
         name: String,
         type: String
@@ -33,29 +37,20 @@ app.post('/user', function(req, res) {
 });
 
 app.post('/class', function(req, res) {
-    mongoose.connect('mongodb://team:team123@ds157559.mlab.com:57559/hackathon', { useNewUrlParser: true });
-
-    var db = mongoose.connection;
-      db.on('error', console.error.bind(console, 'connection error:'));
-      db.once('open', function() {
-      console.log('connection succeeded');
-    });
-
+    getConnection()
     var classSchema = new mongoose.Schema({
         name: String,
         teachers: Array,
         students: Array
     });
-
     var Class = mongoose.model('Class', classSchema);
-
-    var class = new Class({
+    var classRoom = new Class({
         name: req.body.name,
         teachers: req.body.teachers,
         students: req.body.students
     });
 
-    class.save(function(err, class) {
+    classRoom.save(function(err, classRoom) {
         if (err) return console.error(err);
         console.log("Class saved");
     })
