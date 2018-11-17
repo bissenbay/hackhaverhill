@@ -3,6 +3,8 @@ var express = require('express');
 var bodyParser = require("body-parser");
 var app = express();
 
+var User = require('./models/user.js');
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -17,12 +19,12 @@ var getConnection = function() {
     db.once('open', function() {
         console.log('connection succeeded');
     });
-}
+}();
 
 app.post('/user', function(req, res) {
     getConnection()
-    
-    var user = new User({ 
+
+    var user = new User({
         name: req.body.name,
         type: req.body.type
     });
@@ -33,7 +35,6 @@ app.post('/user', function(req, res) {
 });
 
 app.post('/class', function(req, res) {
-    getConnection()
     var classSchema = new mongoose.Schema({
         name: String,
         teachers: Array,
@@ -85,5 +86,18 @@ app.post('/message', function(req, res) {
         console.log("Message sent");
     });
 });
+
+app.get('/userList', function(req,res) {
+    User.find({}, function(err, users) {
+
+        let userMap = {};
+        users.forEach(function(user){
+            userMap[user._id] = user;
+        })
+        res.send(userMap)
+
+
+    })
+})
 
 app.listen(3000);

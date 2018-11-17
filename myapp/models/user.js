@@ -1,3 +1,6 @@
+var mongoose = require('mongoose');
+
+
 // create schema
 var userSchema = new mongoose.Schema({
     name: String,
