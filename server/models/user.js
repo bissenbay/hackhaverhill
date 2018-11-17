@@ -45,7 +45,7 @@ var userSchema = new mongoose.Schema({
         state_agencies_involved: Array
     },
     contact: {
-        phone: Number
+        phone: String
     }
 });
 
