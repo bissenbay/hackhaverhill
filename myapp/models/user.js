@@ -1,6 +1,5 @@
 var mongoose = require('mongoose');
 
-
 // create schema
 var userSchema = new mongoose.Schema({
     name: String,
@@ -10,5 +9,5 @@ var userSchema = new mongoose.Schema({
 // create model
 var User = mongoose.model('User', userSchema);
 
-// allow others to use model
+// allow other parts of app to use model
 module.exports = User;

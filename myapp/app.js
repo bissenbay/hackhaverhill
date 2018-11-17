@@ -22,12 +22,13 @@ var getConnection = function() {
 }();
 
 app.post('/user', function(req, res) {
-    getConnection()
+    getConnection();
 
     var user = new User({
         name: req.body.name,
         type: req.body.type
     });
+
     user.save(function (err, user) {
         if (err) return console.error(err);
         console.log("User has been saved!");
@@ -35,12 +36,8 @@ app.post('/user', function(req, res) {
 });
 
 app.post('/class', function(req, res) {
-    var classSchema = new mongoose.Schema({
-        name: String,
-        teachers: Array,
-        students: Array
-    });
-    var Class = mongoose.model('Class', classSchema);
+    getConnection();
+
     var classRoom = new Class({
         name: req.body.name,
         teachers: req.body.teachers,
@@ -54,24 +51,7 @@ app.post('/class', function(req, res) {
 });
 
 app.post('/message', function(req, res) {
-    mongoose.connect('mongodb://team:team123@ds157559.mlab.com:57559/hackathon', { useNewUrlParser: true });
-
-    var db = mongoose.connection;
-      db.on('error', console.error.bind(console, 'connection error:'));
-      db.once('open', function() {
-      console.log('connection succeeded');
-    });
-
-
-    var messageSchema = new mongoose.Schema({
-        time: Date,
-        value: String,
-        from: String,
-        to: String,
-        recipient_type: String // class, student
-    })
-
-    var Message = mongoose.model('Message', messageSchema);
+    getConnection();
 
     var message = new Message({
         time: Date.now(), // is this how you do it?
