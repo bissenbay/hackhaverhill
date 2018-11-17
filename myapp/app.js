@@ -21,11 +21,7 @@ var getConnection = function() {
 
 app.post('/user', function(req, res) {
     getConnection()
-    var userSchema = new mongoose.Schema({
-        name: String,
-        type: String
-    });
-    var User = mongoose.model('User', userSchema);
+    
     var user = new User({ 
         name: req.body.name,
         type: req.body.type
