@@ -38,9 +38,9 @@ const Button = styled.button`
   }
 
   submit  = e => {
-    axios.post('http://localhost:3000/userList', {
-      firstName: 'Fred',
-      lastName: 'Flintstone'
+    axios.post('http://localhost:3000/user', {
+      first_name: this.state.formControls.name.value,
+      type: this.state.formControls.type.value
     })
     .then(function (response) {
       console.log(response);

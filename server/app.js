@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var express = require('express');
+var cors = require('cors');
 var bodyParser = require("body-parser");
 var app = express();
 
@@ -8,6 +9,8 @@ var User = require('./models/user.js');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+app.use(cors())
 
 app.get('/', function (req, res) {
   res.send('hello world');
