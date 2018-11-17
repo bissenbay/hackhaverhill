@@ -5,6 +5,7 @@ var app = express();
 
 var User = require('./models/user.js');
 
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -17,7 +18,7 @@ var getConnection = function() {
     var db = mongoose.connection;
     db.on('error', console.error.bind(console, 'connection error:'));
     db.once('open', function() {
-        console.log('connection succeeded');
+        console.log('connection to mongodb succeeded');
     });
 }();
 
@@ -73,8 +74,13 @@ app.get('/userList', function(req,res) {
         users.forEach(function(user){
             userMap[user._id] = user;
         })
+        console.log('all students', userMap);
         res.send(userMap)
     })
 })
 
-app.listen(3000);
+const port = 3000;
+
+app.listen(port, function(){
+    console.log(`running on port: ${port}`)
+});

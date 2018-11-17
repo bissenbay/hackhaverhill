@@ -46,11 +46,6 @@ var userSchema = new mongoose.Schema({
     },
     contact: {
         phone: Number
-    },
-    id: {
-        state_id: Number,
-        school_id: Number,
-        program_id: Number
     }
 });
 
