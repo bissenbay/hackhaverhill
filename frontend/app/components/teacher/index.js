@@ -25,31 +25,34 @@ const TeacherMenu = styled.div`
     margin: 5px;
   }
 `
+const StudentsList = function({props}){
+  const people = Object.keys(props).map(function(key, index) {
+    return props[key].basic_info
+ });
+ console.log('names',people);
 
+  if(people.length){
+    const names = people.map((person,index) =>
+      <li key={index}>
+        {person.first_name}
+      </li>)
+      console.log('hi');
+    return (
+      <ul> {names} </ul>
+    )
+  } else {
+    return (
+      <p>loading</p>
+    )
+  }
 
-
-const StudentsList = function(students){
-  console.log('studnet',students);
-  return (
-    <div>
-          <ul>
-            <li>student</li>
-            <li>student</li>
-            <li>student</li>
-            <li>student</li>
-            <li>student</li>
-
-          </ul>
-        </div>
-  )
 }
-
 
 class Students extends Component {
   constructor(props){
     super(props);
     this.state = {
-      studets: {}
+      students: {}
     };
   }
 
@@ -63,15 +66,11 @@ class Students extends Component {
     })
   }
     render(){
-      console.log('state update', this.state);
       return (
         <StudentsList props = {this.state.students } />
       )
     }
 }
-
-
-
 
 const SideBar = function(){
   return (
@@ -89,8 +88,6 @@ const SideBar = function(){
     </Side>
   )
 }
-
-
 
  class Teacher extends Component {
   constructor(props){
@@ -112,12 +109,8 @@ const SideBar = function(){
             <Link to={`${this.match.url}/students`}>Students</Link>
         </TeacherMenu>
         <hr/>
-
          <Route path={`${this.match.url}/chat`} component={Chat} />
          <Route path={`${this.match.url}/students`} component={Students} />
-
-
-
       </TeacherSection>
     </Container>
   }
