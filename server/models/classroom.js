@@ -3,8 +3,8 @@ var mongoose = require('mongoose');
 // create schema
 var classSchema = new mongoose.Schema({
     name: String,
-    teachers: Array,
-    students: Array
+    teacher_id: String,
+    student_ids: Array
 });
 
 // create model

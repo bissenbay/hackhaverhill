@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 
-// create schema
+// User Schema
+
 var userSchema = new mongoose.Schema({
     type: String, // Student, Teacher, Parent, Administrator (School or Agency/Nonprofit/Program)
     sections_visibility: Array,
@@ -13,11 +14,11 @@ var userSchema = new mongoose.Schema({
         parent_1: String,
         parent_1_occupation: String,
         parent_1_education: String,
-        parent_1_phone: Number,
+        parent_1_phone: String,
         parent_2: String,
         parent_2_occupation: String,
         parent_2_education: String,
-        parent_2_phone: Number,
+        parent_2_phone: String,
         household_income: String,
         number_siblings: Number,
         other_household_members: Number,
